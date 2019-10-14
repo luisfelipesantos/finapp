@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import EntryBoard from './../components/entryBoard';
+import OutflowBoard from './../components/outFlowBoard';
 
 export default class Main extends Component {
-
     static navigationOptions = {
         title: "FinApp"
     };
@@ -67,49 +67,7 @@ export default class Main extends Component {
         this.setState({
             outflows: outflowsList
         });
-    }
-
-    renderEntries = ({ item }) => (
-        <View style={styles.entryCard}>
-            <Text style={styles.cardValue}>R$ {item.value}</Text>
-            <Text numberOfLines={2} style={styles.cardName}>{item.name}</Text>
-
-            <View>
-                <View style={styles.editIcons}>
-                    <TouchableOpacity onPress={() => { }}>
-                        <Icon name="edit" size={25} color="#F5F5F5" />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => { }}>
-                        <Icon name="delete" size={25} color="#F5F5F5" />
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.cardDate}>{item.date}</Text>
-            </View>
-
-        </View>
-    );
-
-    renderOutflows = ({ item }) => (
-        <View style={styles.outflowCard}>
-            <Text style={styles.cardValue}>R$ {item.value}</Text>
-            <Text numberOfLines={2} style={styles.cardName}>{item.name}</Text>
-
-            <View>
-                <View style={styles.editIcons}>
-                    <TouchableOpacity onPress={() => { }}>
-                        <Icon name="edit" size={25} color="#F5F5F5" />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => { }}>
-                        <Icon name="delete" size={25} color="#F5F5F5" />
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.cardDate}>{item.date}</Text>
-            </View>
-
-        </View>
-    );
+    }  
 
     render() {
         return (
@@ -121,36 +79,10 @@ export default class Main extends Component {
 
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.boardsContainer}>
                     {/*Entries*/}
-                    <View style={styles.entriesListContainer}>
-                        <View style={styles.entriesHeader}>
-                            <Text style={styles.entriesText}>Entries</Text>
-                            <TouchableOpacity onPress={() => { }}>
-                                <Icon name="add-circle" size={25} color="#222" />
-                            </TouchableOpacity>
-                        </View>
-                        <FlatList
-                            contentContainerStyle={styles.entriesList}
-                            data={this.state.entries}
-                            keyExtractor={item => item.name}
-                            renderItem={this.renderEntries}
-                        />
-                    </View>
+                    <EntryBoard data={this.state.entries} />
 
                     {/*Outflows*/}
-                    <View style={styles.outflowsListContainer}>
-                        <View style={styles.outflowsHeader}>
-                            <Text style={styles.outflowsText}>Outflows</Text>
-                            <TouchableOpacity onPress={() => { }}>
-                                <Icon name="add-circle" size={25} color="#222" />
-                            </TouchableOpacity>
-                        </View>
-                        <FlatList
-                            contentContainerStyle={styles.outflowsList}
-                            data={this.state.outflows}
-                            keyExtractor={item => item.name}
-                            renderItem={this.renderOutflows}
-                        />
-                    </View>
+                    <OutflowBoard data={this.state.outflows} />
 
                 </ScrollView>
 
@@ -190,38 +122,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         padding: 10,
     },
-
-    entriesListContainer: {
-        backgroundColor: "#F5F5F5",
-        height: 400,
-        marginTop: 20,
-        width: 320,
-        borderRadius: 7,
-    },
-    entriesText: {
-        fontWeight: "bold",
-        fontSize: 18
-    },
-    entriesHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: 20,
-        paddingBottom: 5,
-        marginBottom: 0
-    },
-    entryCard: {
-        padding: 15,
-        backgroundColor: "#73C26D",
-        borderRadius: 7,
-        marginBottom: 10,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
-    },
-    entriesList: {
-        padding: 10,
-    },
     editIcons: {
         flexDirection: "row",
         justifyContent: "space-between"
@@ -238,38 +138,6 @@ const styles = StyleSheet.create({
     cardName: {
         color: "#f5f5f5",
         maxWidth: 130,
-    },
-    outflowsListContainer: {
-        backgroundColor: "#F5F5F5",
-        height: 400,
-        marginTop: 20,
-        width: 320,
-        borderRadius: 7,
-        marginLeft: 20,
-    },
-    outflowsText: {
-        fontWeight: "bold",
-        fontSize: 18
-    },
-    outflowsHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: 20,
-        paddingBottom: 5,
-        marginBottom: 0
-    },
-    outflowCard: {
-        padding: 15,
-        backgroundColor: "#DC6150",
-        borderRadius: 7,
-        marginBottom: 10,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
-    },
-    outflowsList: {
-        padding: 10,
     },
     resetText: {
         color: "#f5f5f5",
